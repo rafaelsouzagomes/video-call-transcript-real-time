@@ -1,0 +1,1 @@
+type LanguageOption = 'en-US' | 'pt-br' | 'es-AR' | 'es-ES';
