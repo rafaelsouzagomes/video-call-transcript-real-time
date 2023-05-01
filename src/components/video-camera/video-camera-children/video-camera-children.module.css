@@ -1,0 +1,22 @@
+.container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 7.5rem;
+  width: 90%;
+  padding: 0.5rem;
+}
+.video-container{
+  background-color: aliceblue;
+  border-radius: 20px;
+}
+
+.video{
+	width: 10rem;
+	object-fit: cover;
+	height: 100%;
+  /* border-radius: 30px; */
+  padding: 0.5rem;
+
+}

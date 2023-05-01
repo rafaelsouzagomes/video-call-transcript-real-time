@@ -3,13 +3,14 @@ import styles from './tools-btn-styled.module.css';
 
 export interface ToolsBtnStyledProps {
   imageBtnSrc: string,
-  name: string
+  name: string,
+  colorType: 'inative' | 'success' | 'neutro' | 'opac' 
 }
 
-const ToolsBtnStyled: React.FC<ToolsBtnStyledProps> = ( {imageBtnSrc, name}:ToolsBtnStyledProps) => {
+const ToolsBtnStyled: React.FC<ToolsBtnStyledProps> = ( {imageBtnSrc, name, colorType}:ToolsBtnStyledProps) => {
   return (
-    <button>
-        <img src={imageBtnSrc} alt={name} className={styles['chat-btn']}  />
+    <button className={styles['btn']}>
+        <img src={imageBtnSrc} alt={name} className={`${styles['chat-btn']} ${colorType}`}  />
     </button>
   );
 }

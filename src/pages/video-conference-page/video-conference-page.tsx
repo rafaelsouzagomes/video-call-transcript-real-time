@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VideoCamera from '../../components/video-camera/VideoCamera';
-import WebSpeechTranscript from '../../services/web-speech-transcript/WebSpeechTranscript';
+import ChatBalloon from '../../components/chat-balloon/chat-ballon';
+import styles from './video-conference-page.module.css';
 
 const VideoConferencePage: React.FC = () => {
-  
+
   return (
-    <div>
+    <div className={styles['container']}>
       <VideoCamera></VideoCamera>
-    
-      <div style={{display:'block', position:'relative', top:100}}>
-        <WebSpeechTranscript language='en-US' />
-      </div>
     </div>
   )
 }

@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  align-items: center;
+  gap:0.5rem;
+  background-color: var(--color-neutro);
+  width: 20rem;
+  padding: 1rem;
+  border-radius: 12px;
+  
+
+}
+
+.content h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.content p {
+}

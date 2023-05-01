@@ -1,6 +1,9 @@
 .chat-btn{
   height: 3rem;
-  background-color: #FF3459;
+  background-color:  var(--color-inative);
   padding: 0.6rem;
   border-radius: 10px;
+}
+.btn {
+  cursor: pointer;
 }

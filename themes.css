@@ -1,6 +1,39 @@
 :root {
-  --primary-color:  #0ec879;
-  --secondary-color: #6c757d;
-  --text-color: #333;
-  --background-color: #fff;
+  --color-success: #0FDA24;
+  --color-inative: #FF3459;
+  --color-neutro: #FFFFFF;
+  --font-familly: 'League Spartan', sans-serif;
+}
+
+.inative {
+  background-color: var(--color-inative);
+}
+
+.success {
+  background-color: var(--color-success);
+}
+
+.opac {
+  background-color: var(--color-neutro);
+  opacity: 60%;
+}
+
+.neutro {
+  background-color: var(--color-neutro);
+}
+
+.fullScreen {
+  width: 100vw;
+}
+.midScreen {
+  width: 70vw;
+}
+
+.real-time-balloon-chat{
+  opacity: 0.7;
+  width: 30rem;
+}
+
+.historic-balloon-chat{
+  position: relative;
 }
