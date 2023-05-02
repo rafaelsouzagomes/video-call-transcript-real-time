@@ -6,7 +6,7 @@ import cameraOffChatImg from '../../../assets/call-icones/camera-off-chat.svg'
 import outChatImg from '../../../assets/call-icones/out-chat.svg'
 import screenShareChatImg from '../../../assets/call-icones/screen-share-chat.svg'
 import translateChatImg from '../../../assets/call-icones/translate-chat.svg'
-import ToolsBtnStyled from '../tools-btn-styled/tools-btn-styled';
+import ToolsBtnStyled from './tools-btn-styled/tools-btn-styled';
 import ChatBalloon from '../../chat-balloon/chat-ballon';
 
 export interface VideoToolsProps  {

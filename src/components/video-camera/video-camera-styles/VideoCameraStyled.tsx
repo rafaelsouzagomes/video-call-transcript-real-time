@@ -1,8 +1,9 @@
 import React, { LegacyRef, ReactElement, useRef } from 'react';
 import styles from './videocamperastyles.module.css'
-import VideoTools from '../video-tools-styled/video-tools-styled';
+import VideoTools, { VideoToolsProps } from '../video-tools-styled/video-tools-styled';
 import VideoCameraChildren from '../video-camera-children/VIdeo-camera-children';
 import ChatHistory, { ChatHistoryProps } from '../../chat-history/chat-history';
+import { VideoCameraChildrenProps } from './../video-camera-children/VIdeo-camera-children';
 
 export interface VideoCameraStyledProps {
   playsInline: boolean  | undefined;
@@ -10,10 +11,10 @@ export interface VideoCameraStyledProps {
   refCamera: LegacyRef<HTMLVideoElement> | undefined;
   autoPlay: boolean  | undefined;
   videoSize: 'fullScreen' | 'midScreen';
-  withTools?: boolean,
-  isSpeaking: boolean,
   cameraChildren:LegacyRef<HTMLVideoElement> | undefined;
+  videoTools:ReactElement<VideoToolsProps, typeof VideoTools>;
   chatHistory:ReactElement<ChatHistoryProps, typeof ChatHistory>;
+  videoCameraChildren: ReactElement<VideoCameraChildrenProps, typeof VideoCameraChildren>;
 }
 
 const VideoCameraStyled: React.FC<VideoCameraStyledProps> = ({playsInline, 
@@ -21,15 +22,9 @@ const VideoCameraStyled: React.FC<VideoCameraStyledProps> = ({playsInline,
                                                               refCamera, 
                                                               videoSize,
                                                               autoPlay,
-                                                              withTools,
-                                                              cameraChildren,
-                                                              isSpeaking,
+                                                              videoCameraChildren,
+                                                              videoTools,
                                                               chatHistory}: VideoCameraStyledProps) => {
-   withTools = withTools ?? false ;
-
-
-   
-
   return (
     <div>
       <div className={ ` ${styles['container']} ${videoSize} `} >
@@ -38,11 +33,9 @@ const VideoCameraStyled: React.FC<VideoCameraStyledProps> = ({playsInline,
                 muted={muted} 
                 ref={refCamera} 
                 autoPlay={autoPlay} />
-                
-          {chatHistory}
-
-          <VideoCameraChildren refCamera={cameraChildren}  />
-        {withTools && <VideoTools isSpeaking={isSpeaking} /> }
+        {chatHistory}
+        {videoCameraChildren}
+        {videoTools} 
       </div>
     </div>
   )
