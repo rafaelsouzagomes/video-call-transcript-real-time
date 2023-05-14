@@ -1,9 +1,10 @@
 import React, { LegacyRef, ReactElement, useRef } from 'react';
 import styles from './videocamperastyles.module.css'
-import VideoTools, { VideoToolsProps } from '../video-tools-styled/video-tools-styled';
+import VideoTools  from '../video-tools-styled/video-tools-styled';
 import VideoCameraChildren from '../video-camera-children/VIdeo-camera-children';
-import ChatHistory, { ChatHistoryProps } from '../../chat-history/chat-history';
+import ChatHistory from '../../chat-history/chat-history';
 import { VideoCameraChildrenProps } from './../video-camera-children/VIdeo-camera-children';
+import ChatReciever from '../chat-reciever/chat-reciever';
 
 export interface VideoCameraStyledProps {
   playsInline: boolean  | undefined;
@@ -12,9 +13,10 @@ export interface VideoCameraStyledProps {
   autoPlay: boolean  | undefined;
   videoSize: 'fullScreen' | 'midScreen';
   cameraChildren:LegacyRef<HTMLVideoElement> | undefined;
-  videoTools:ReactElement<VideoToolsProps, typeof VideoTools>;
-  chatHistory:ReactElement<ChatHistoryProps, typeof ChatHistory>;
+  videoTools:ReactElement<any, typeof VideoTools>;
+  chatHistory:ReactElement<any, typeof ChatHistory>;
   videoCameraChildren: ReactElement<VideoCameraChildrenProps, typeof VideoCameraChildren>;
+  chatReciever:ReactElement<any, typeof ChatReciever>;
 }
 
 const VideoCameraStyled: React.FC<VideoCameraStyledProps> = ({playsInline, 
@@ -24,19 +26,21 @@ const VideoCameraStyled: React.FC<VideoCameraStyledProps> = ({playsInline,
                                                               autoPlay,
                                                               videoCameraChildren,
                                                               videoTools,
-                                                              chatHistory}: VideoCameraStyledProps) => {
+                                                              chatHistory,
+                                                              chatReciever}: VideoCameraStyledProps) => {
   return (
     <div>
       <div className={ ` ${styles['container']} ${videoSize} `} >
         <video  className={styles['video']}   
                 playsInline={playsInline}
-                muted={muted} 
+                muted={true} 
                 ref={refCamera} 
                 autoPlay={autoPlay} />
         {chatHistory}
         {videoCameraChildren}
         {videoTools} 
       </div>
+      {chatReciever}
     </div>
   )
 }

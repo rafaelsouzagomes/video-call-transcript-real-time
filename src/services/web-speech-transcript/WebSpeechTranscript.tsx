@@ -1,67 +1,89 @@
 import React, { useEffect, useState } from 'react';
 import "regenerator-runtime/runtime";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { MyChatContext, MyChatContextProps } from '../../components/video-camera/VideoCamera';
+import { DataMessage, MyChatContext, MyChatContextProps } from '../../components/video-camera/VideoCamera';
+import useWebSocket from 'react-use-websocket';
+import { loadData } from '../../utils/LocalStorageUtil';
 
-export interface WebSpeechTranscriptProps {
-  language: LanguageOption,
-  isSpeaking: boolean
-}
+const WebSpeechTranscript: React.FC = ()  => {
 
-const WebSpeechTranscript: React.FC<WebSpeechTranscriptProps> = ({language}:WebSpeechTranscriptProps)  => {
-
-  const { transcript,finalTranscript, listening, resetTranscript } = useSpeechRecognition();
-  SpeechRecognition.startListening({  continuous: true, 
-                                      language});
-    
-                                    
-
+  const dataMessageLocal: DataMessage = {
+    avatarIcon: loadData('avatarIcon'),
+    languageUser: loadData('language'),
+    sender: loadData('idUser'),
+    username: loadData('username')
+  };
+  const { transcript, resetTranscript } = useSpeechRecognition();
+  const { setTranscript, setDataMessage, muted, language} = React.useContext<MyChatContextProps>(MyChatContext);
+  const { sendJsonMessage } = useWebSocket('ws://localhost:3000');
   const [currentText, setCurrentText] = useState<string>('Your Transcrip will appear here');
-  const maxCaracters: number = 60;
-
-  const  {transcriptText, setTranscript, isSpeaking}  = React.useContext<MyChatContextProps>(MyChatContext);
 
   useEffect(() => {
+    if(muted){
+      SpeechRecognition.stopListening()
+    } else{
+      SpeechRecognition.startListening({  continuous: true, language});
+    }
+  }, [muted])
+
+  useEffect(() => { 
+    SpeechRecognition.stopListening();
+    SpeechRecognition.startListening({  continuous: true, language});
+  }, [language]);
+
+  useEffect(() => {
+    const maxCaracters: number = 60;
     if(transcript.length>0){
       setCurrentText(transcript);
     }
     if(transcript.length >= maxCaracters){
-      resetTranscript();
-      if(setTranscript){
-        console.log(transcript);
-        setTranscript(transcript);
-      }
-      setCurrentText('Your Transcrip will appear here');
+      sendDataMessage();
+      sendTranscript();
     }
   }, [transcript.length])
 
+  const [timerId, setTimerId] = useState<any>(null);
 
+  //Send message when the user stop talking by 3 seconds
   useEffect(() => {
-    console.log(isSpeaking);
-    // const intervalId = setInterval(() => {
-    //   if(!isSpeaking){
-    //     if(setTranscript){
-    //       setTranscript(transcript);
-    //     }
-    //     resetTranscript();
-       
-    //     setCurrentText('Your Transcrip will appear here');
-    //   }
-    // }, 5000);
+    clearTimeout(timerId);
+    const length = transcript.length;
+    const newTimerId = setTimeout(() => {
+      if(length == transcript.length){
+        sendDataMessage();
+        sendTranscript();
+      } 
+    }, 3000);
+    setTimerId(newTimerId);
+    return () => clearTimeout(newTimerId);
+  }, [transcript.length]);
 
-    if(!isSpeaking){
-      if(setTranscript){
-        setTranscript(transcript);
-      }
-      resetTranscript();
-     
-      setCurrentText('Your Transcrip will appear here');
+  function sendMessage(){
+    if(transcript.length && transcript.length >0){
+      sendJsonMessage({ sender: dataMessageLocal.sender, 
+                        text: transcript, 
+                        avatarIcon: dataMessageLocal.avatarIcon, 
+                        idUser: dataMessageLocal.sender,
+                        username: dataMessageLocal.username, 
+                        languageUser: dataMessageLocal.languageUser });
     }
+  }
 
-    // return () => clearInterval(intervalId);
-  }, [isSpeaking]);
+  function sendTranscript() {
+    if (setTranscript) {
+      setTranscript(transcript);
+      sendMessage();
+      resetTranscript();
+      setCurrentText('Your Transcrip will appear here');
+      SpeechRecognition.startListening({  continuous: true, language});
+    }
+  }
 
-
+  function sendDataMessage() {
+    if (setDataMessage) {
+      setDataMessage(dataMessageLocal);
+    }
+  }
   
   return <> {true && currentText} </>;
 }

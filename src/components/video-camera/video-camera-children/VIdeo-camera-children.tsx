@@ -11,7 +11,7 @@ const VideoCameraChildren: React.FC<VideoCameraChildrenProps> = ({refCamera}:Vid
       <div className={styles['video-container']}>
         <video  className={styles['video']}   
                 playsInline
-                muted 
+                muted={true} 
                 ref={refCamera} 
                 autoPlay />
       </div>

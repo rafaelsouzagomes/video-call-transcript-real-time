@@ -3,7 +3,13 @@
   background-color:  var(--color-inative);
   padding: 0.6rem;
   border-radius: 10px;
+  transition: all 0.2s ease-out;
+
 }
 .btn {
   cursor: pointer;
+}
+
+.btn img {
+  max-width: 2.9rem;
 }

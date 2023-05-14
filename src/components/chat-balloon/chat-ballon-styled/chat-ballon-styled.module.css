@@ -9,7 +9,13 @@
   
 
 }
-
+.photo-user {
+  max-width: 15%;
+}
+.photo-user img{
+  height: 100%;
+  width: 100%;
+}
 .content h2 {
   font-size: 1rem;
   font-weight: 700;

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef, RefObject } from 'react';
-import annyang, { CommandOption } from 'annyang';
+import React, { useState, useEffect, useRef } from 'react';
 
 export interface DetectorSpeakingProps {
   setIsSpeakingExport: (isSpeaking: boolean) => void;
