@@ -22,5 +22,4 @@ Open your browser and access http://localhost:5173/ to use the software.
 Install project dependencies using the *npm install* command.
 Start the development server with *npm start*.
 
-## Contribution
-I haven't finished this project yet and Contributions to improve it are welcome. If you identify any issues, bugs, or have suggestions for new features, feel free to open an issue in this repository. Additionally, you can submit pull requests with your improvements.
+
